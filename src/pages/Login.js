@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";  // Import Link from react-router-dom
 
 const Login = () => {
-  const [email, setEmail] = useState(""); // State to hold email input
-  const [password, setPassword] = useState(""); // State to hold password input
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const [error, setError] = useState(""); // State to hold error messages
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [isLoading, setIsLoading] = useState(false); 
+  const [error, setError] = useState(""); 
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-    setIsLoading(true);  // Show loading indicator
+    e.preventDefault(); 
+    setIsLoading(true);  
 
     const loginData = { email, password };
 
@@ -27,16 +27,15 @@ const Login = () => {
         throw new Error(data.error || "Login failed");
       }
 
-      localStorage.setItem("token", data.token); // Store JWT token
+      localStorage.setItem("token", data.token);
 
-      // Redirect to dashboard or home page
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard"; // Redirect after login
 
     } catch (error) {
       console.error("Error:", error);
-      setError(error.message);  // Show error message to user
+      setError(error.message); 
     } finally {
-      setIsLoading(false);  // Hide loading indicator
+      setIsLoading(false);
     }
   };
 
@@ -59,9 +58,17 @@ const Login = () => {
         />
         <br />
         <button type="submit" disabled={isLoading}>Login</button>
-        {isLoading && <p>Loading...</p>}  {/* Loading indicator */}
-        {error && <p style={{ color: "red" }}>{error}</p>} {/* Error message */}
+        {isLoading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
+
+      {/* Add the Signup button here */}
+      <div>
+        <p>Don't have an account?</p>
+        <Link to="/signup">
+          <button>Signup</button>
+        </Link>
+      </div>
     </div>
   );
 };
