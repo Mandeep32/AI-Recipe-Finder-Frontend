@@ -7,6 +7,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [signupSuccess, setSignupSuccess] = useState(false); // State to track signup success
   const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleSubmit = async (e) => {
@@ -29,10 +30,7 @@ const Signup = () => {
         throw new Error(data.error || "Signup failed");
       }
 
-      alert("Signup successful! You can now login.");
-
-      // Redirect to Login page after successful signup
-      navigate("/login");
+      setSignupSuccess(true); // Set success to true after successful signup
 
     } catch (error) {
       console.error("Error:", error);
@@ -45,32 +43,40 @@ const Signup = () => {
   return (
     <div>
       <h2>Signup Page</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit" disabled={isLoading}>Signup</button>
-        {isLoading && <p>Loading...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
+      {signupSuccess ? (
+        <div>
+          <p>Signup successful! You can now login.</p>
+          {/* Button to return to Login page */}
+          <button onClick={() => navigate("/login")}>Return to Login</button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <br />
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br />
+          <button type="submit" disabled={isLoading}>Signup</button>
+          {isLoading && <p>Loading...</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </form>
+      )}
     </div>
   );
 };
