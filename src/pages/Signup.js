@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -6,6 +7,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +30,9 @@ const Signup = () => {
       }
 
       alert("Signup successful! You can now login.");
-      window.location.href = "/login";  // Redirect to Login page after successful signup
+
+      // Redirect to Login page after successful signup
+      navigate("/login");
 
     } catch (error) {
       console.error("Error:", error);
