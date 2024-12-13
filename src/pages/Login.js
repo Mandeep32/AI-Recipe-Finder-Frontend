@@ -40,33 +40,38 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h2>Login Page</h2>
       <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit" disabled={isLoading}>Login</button>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          Login
+        </button>
         {isLoading && <p>Loading...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
 
-      {/* Add the Signup button here */}
-      <div>
+      <div className="mt-3">
         <p>Don't have an account?</p>
         <Link to="/signup">
-          <button>Signup</button>
+          <button className="btn btn-link">Signup</button>
         </Link>
       </div>
     </div>
